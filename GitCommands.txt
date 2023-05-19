@@ -1,0 +1,270 @@
+=======================================================================================================================================================================================
+
+Adding a GitHub Repository To Your Local Machine
+
+Cloning :
+• Often we want to get a local copy of an existing repo instead. To do this we can clone a remote repo hosted on Github.
+• All we need url that we can tell Git to clone for use.
+
+git clone <url> : -> git will retrieve all the files associated with the repo and copy them to local m/c.
+
+=======================================================================================================================================================================================
+
+Adding a local repository to GitHub using Git :
+
+1) Use the init command to initialize the local directory as a Git repository. By default, the initial branch is called master.
+git init -b main
+
+2) Add the files in your new local repository. This stages them for the first commit.
+git add . 
+
+3) Commit the files that you've staged in your local repository.
+git commit -m "First commit"
+
+4) At the top of your repository on GitHub.com's Quick Setup page, click  to copy the remote repository URL.
+
+5) In the Command prompt, add the URL for the remote repository where your local repository will be pushed.
+
+# git remote add origin <REMOTE_URL>
+Sets the new remote
+
+# git remote -v
+Verifies the new remote URL
+
+6) Pull the changes from git repo to your local repository from GitHub.com.
+git pull origin main
+
+7) Push the changes in your local repository to GitHub.com.
+git push origin main
+=======================================================================================================================================================================================
+
+Git Commands : ---->
+
+git config user.name  : -> returns the current username
+=======================================================================================================================================================================================
+
+git config user.email : -> returns the current email
+=======================================================================================================================================================================================
+
+git config --global user.name Taher Ali : -> updates the current username
+=======================================================================================================================================================================================
+
+to create new file :-> 
+touch test.txt
+=======================================================================================================================================================================================
+
+to delete file :-> 
+rm test.txt
+=======================================================================================================================================================================================
+
+to create new folder :-> 
+mkdir Test
+=======================================================================================================================================================================================
+
+ls -a :->  list all hidden files also
+=======================================================================================================================================================================================
+
+git init :-> create new git repo
+=======================================================================================================================================================================================
+
+git status :->  shows information on current status of git repo and its content
+=======================================================================================================================================================================================
+
+git log :->  shows all history
+=======================================================================================================================================================================================
+
+													 
+													 |==================|
+									  |<==============| Working Directory|
+									  |			     |==================|
+									  |				 
+									  |	
+								  |========|  
+								  |git add |			 
+								  |========|				 
+									  |				 
+									  |				 
+									  |			     |==================|
+									  |=============>| Staging   Area   |=============>|
+													 |==================|		       |				 
+																					   |				 
+																					   |																							
+																				|===========|  
+																				|git commit |			 
+																				|===========|			  																						
+																					   |
+																					   |
+																					   |
+													 |==================|			   |
+													 |     Repository   |<==============
+													 |==================|
+													 
+=======================================================================================================================================================================================
+	
+git add   :->  add specific files to staging area
+git add . :->  add all files to staging area
+=======================================================================================================================================================================================
+
+git commit -m "my message" :->   commit all changes to repo from the staging area
+	 	         				-m flag allows up to pass an inline commit message
+=======================================================================================================================================================================================
+
+git commit --amend :-> suppose we just made commit and then realized we forgot to include a file or maybe we made typo in commit message that we want to correct, 
+					   rather than making brand new seprate commit we can redo the previous commit message using the --amend option.
+
+					git commit -m "some commit"
+					git add forgotten file
+					git commit --amend
+=======================================================================================================================================================================================
+
+.gitignore :-> inside file we can write patterns to tell GIT which files and folders to ignore
+			    a) .DS_Store will ignore files named .DS_Store
+				b) folderName/ will ignore an entire directory
+				c) *.log will ignore any files with the .log extension
+=======================================================================================================================================================================================
+
+HEAD : HEAD is simply pointer that refers to the current "location" in your repo. 
+	   HEAD points to particular branch reference.
+	   HEAD always points to the latest commit you made on branch.
+=======================================================================================================================================================================================
+
+git branch :->  to view existing branches in your repo.
+				'*' indicates which branch you are currently on.
+=======================================================================================================================================================================================
+
+git branch <branch-name> :-> to make a new branch based upon current head.
+							 this just creates the branch and it does not switch you to that branch.
+=======================================================================================================================================================================================
+
+git switch <branch-name> :-> to switch to specific branch.
+git checkout <branch-name> :-> to switch to specific branch.
+
+note : both are same
+=======================================================================================================================================================================================
+
+git switch -c <branch-name> :-> to make a new branch based upon current head.
+							    this just not only creates the branch also it does switch you to that branch.
+=======================================================================================================================================================================================
+
+git branch -d <branch-name> :-> to delete a branch.
+=======================================================================================================================================================================================
+
+git branch -m <branch-name> :-> to rename a branch.
+=======================================================================================================================================================================================
+
+Three type of merge : 1) Fast Forward
+					  2) Merge Commit(No Conflicts)
+					  3) Conflicts
+
+git merge :-> to merge bugfix branch into master.
+			  Switch to or checkout the branch you want to merge the changes into(receving branch)
+			  Use git merge command to merge the changes from specific branch into the current branch
+			  For example :-> To merge the bugfix branch into main branch
+			  > git switch main
+			  > git merge bugfix
+=======================================================================================================================================================================================
+
+Resolving conflicts : 1) Open up the file with merge conflicts.
+					  2) Edit the files to remove the conflicts. Decide which branchs content you want to keep in each conflict or keep the content from both.
+					  3) Remove the conflict markers in the file.
+					  4) Add your changes and then make commit.
+					  
+
+Content from the branch you are trying to merge from is displayed between the ======= and >>>>> symbols
+=======================================================================================================================================================================================
+
+git reset <file-name(s)> :-> remove the file from staging area back to working directory.
+=======================================================================================================================================================================================
+Git Diff:
+
+viewing unstaged changes :
+git diff :-> lists all the changes in working directory that are not staged for commit.
+		     compares staging area and working directory files.
+
+viewing staged changes :
+git diff --staged :-> lists all the changes in working directory that are staged for commit.
+					  shows all what will be included in my commit if I run git commit.
+			 
+viewing unstaged and staged changes :
+git diff HEAD :-> lists all the changes in working directory since your last commit.
+
+comparing branches :
+git diff branch1 bracnch2	
+
+comparing commits :
+git diff commit1 commit2
+=======================================================================================================================================================================================
+	
+Git Stash:
+I do some new work on bugfix branch but don’t make any commits. What happen when I switch back to main branch?
+Then possibly 2 things may happen:
+1)	My changes come with me to the destination branch.
+2)	Git won’t let me switch if it detects potential conflicts.
+
+Stashing : Git provides an easy way of stashing these uncommitted changes so that we can return to them later, without having to make unnecessary commits.
+
+git stash :-> is useful command that helps you save changes that you are not ready yet to commit. You can stash changes and then come back to them later.
+Running git stash will take all uncommitted changes (staged and unstaged) and stash them, reverting changes in your working copy.
+
+git stash pop :-> to remove the most recently stashed changes in your stash and re-apply them to your working copy.
+
+git stash apply :-> to apply whatever is stashed away, without removing it from the stash. This can be useful if you want to apply stashed changes to multiple branches.
+
+git stash list :-> list all the stashed changes from stash stack.
+
+git stash clear :-> clear out all the stashes.
+=======================================================================================================================================================================================
+
+We can use git checkout commit <commit-id> to view previous commit. 
+
+Usually, HEAD points to a specific branch reference rather than particular commit.
+How it works?
+•	HEAD is pointer to current branch reference.
+•	The branch reference is pointer to the last commit made on particular branch.
+
+When we checkout a particular commit, HEAD points at that commit rather than at the branch reference.
+=======================================================================================================================================================================================
+
+Unmodifying files with Restore : 
+
+Discarding changes :
+• Suppose you have made some changes to a file but dont want to keep them. To revert the file back to whatever it looked like when you last committed, you can use below :
+git checkout HEAD <file-name>  :-> to discard any changes in that file , reverting back to HEAD.		
+
+Git	Restore:
+git restore <file-name> :-> • git restore helps with undoing operations.
+							• Suppose you have made some changes to a file since your last commit, you have saved the file but then realize we don’t want those changes anymore. 
+							  To restore the file to the contents in the HEAD, we can use git restore <file-name>
+							
+both are same							
+1) git checkout HEAD <file-name>
+2) git restore <file-name>
+
+Unstaging files with Restore :
+• git restore --staged <filename> :-> to unstage from stagging area
+• git restore <filename> :-> to discard changes in working directory if not staged i.e not add
+=======================================================================================================================================================================================
+
+Undoing commits with Reset :
+
+1) Plain Reset :
+•  Suppose you have just made a couple of commits on the main branch , but you actually meant to make them on seprate branch instead. To undo those commits, you can use below :
+   git reset <commit-hash> :-> will delete and reset repo back to a specific commit. The commits are gone but associated changes will be remain in working directory.
+
+2) Hard Reset :
+•  If you want to undo both the commits and actual changes in your files, you can use below :
+   git reset --hard <commit-hash> :-> will delete and reset repo back to a last commit and associated changes from working directory.
+=======================================================================================================================================================================================
+
+Reverting commits with Git Revert :
+• git revert is similar to git reset, both undo changes but they accomplish it in different ways.
+	• git reset actaully moves the branch pointer backwards, eliminating commits.
+	• git revert instead creates a brand new commit which reverses/undo the changes from commit, because it results in new commit, you will be prompted to enter a commit message.
+	
+Which one to use ?
+• Both helps us reverses/undo changes, but there is significant difference when it comes to collaboration.
+• If you want to reverse some commits that other people already  have on their machines, yet should use revert.
+• If you want to reverse commits that you haven't shared with others, use reset.
+	
+git revert :-> creates a brand new commit which reverses/undo the changes from commit, because it results in new commit.
+=======================================================================================================================================================================================
